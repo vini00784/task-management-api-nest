@@ -7,10 +7,13 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { TaskDto, GetAllParameters } from './task.dto';
 import { TaskService } from './task.service';
+import { AuthGuard } from 'src/auth/auth.guard';
 
+@UseGuards(AuthGuard) // Protege as rotas dessa controller, ou seja, elas vão exigir que seja passado o token JWT
 @Controller('task')
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
