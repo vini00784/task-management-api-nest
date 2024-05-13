@@ -4,15 +4,17 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { GetAllParameters, TaskDto } from './task.dto';
+import { GetAllParameters, TaskDto, TaskStatusEnum } from './task.dto';
+import { v4 as uuid } from 'uuid';
 
 @Injectable()
 export class TaskService {
   private tasks: TaskDto[] = [];
 
   createTask(task: TaskDto) {
+    task.id = uuid();            
+    task.status = TaskStatusEnum.TO_DO;
     this.tasks.push(task);
-    console.log(this.tasks);
   }
 
   getTaskById(id: string): TaskDto {
